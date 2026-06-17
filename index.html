@@ -313,8 +313,10 @@
         <b>FLASH</b> is a deformable-object simulator: it models cloth as a triangular mesh and
         resolves frictional contact with non-smooth Newton iterations, reducing the heavy computation
         to GPU-friendly sparse operations for stable, repeatable rollouts. Under an identical task and
-        MPPI controller, FLASH gives the best accuracy&ndash;fidelity&ndash;speed trade-off across all
-        parallel-environment counts <i>K</i>: <b>95&ndash;100% success</b> with keypoint error and MSE
+        MPPI controller, and with every simulator's physical parameters tuned as carefully as we
+        could for a fair comparison, FLASH gives the best accuracy&ndash;fidelity&ndash;speed trade-off across all
+        tested <b><i>K</i> &mdash; the number of parallel rollout environments (candidate action
+        sequences evaluated per MPPI step)</b>: <b>95&ndash;100% success</b> with keypoint error and MSE
         about an order of magnitude lower than the others. The videos below show MPPI
         diagonal-fold rollouts on the <b>same seed, cost, and cloth asset</b> across the three
         simulators.
@@ -349,8 +351,10 @@
     </div>
     <p class="figure-caption has-text-centered">
       Simulator backend evaluation under the same cloth-manipulation task and MPPI controller.
-      <b>Step</b> / <b>MPPI</b>: wall-clock per dynamics step / per rollout batch;
-      <b>KP err.</b>: keypoint alignment error; <b>SR</b>: success rate. Bold marks the best per column.
+      <b>K = number of parallel rollout environments</b> (the candidate action sequences MPPI samples
+      and evaluates in parallel at each step). <b>Step</b> / <b>MPPI</b>: wall-clock per dynamics step /
+      per rollout batch; <b>KP err.</b>: keypoint alignment error; <b>SR</b>: success rate.
+      Bold marks the best per column.
     </p>
 
     <!-- 仿真器对比 rollout：每行一个 K，三个仿真器同 seed / 同 cost / 同 cloth，FLASH 在最左。
