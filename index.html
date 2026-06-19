@@ -250,6 +250,9 @@
           </video>
         </div>
       </div>
+      <p class="figure-caption has-text-centered" style="margin-top: 0.4rem;">
+        <b>Self-collision is disabled during MPPI rollouts for sampling efficiency.</b>
+      </p>
     </div>
   </div>
 </section>
@@ -312,14 +315,16 @@
       <p>
         <b>FLASH</b> is a deformable-object simulator: it models cloth as a triangular mesh and
         resolves frictional contact with non-smooth Newton iterations, reducing the heavy computation
-        to GPU-friendly sparse operations for stable, repeatable rollouts. Under an identical task and
-        MPPI controller, and with every simulator's physical parameters tuned as carefully as we
-        could for a fair comparison, FLASH gives the best accuracy&ndash;fidelity&ndash;speed trade-off across all
+        to GPU-friendly sparse operations for stable, repeatable rollouts. We plug each simulator in
+        as the rollout engine of one and the same <b>vanilla MPPI</b> controller &mdash; holding the
+        cost, initial state, seed, and cloth asset fixed, and tuning every simulator's physical
+        parameters as carefully as we could &mdash; so that any gap reflects the simulator alone. Under
+        this fair comparison FLASH gives the best accuracy&ndash;fidelity&ndash;speed trade-off across all
         tested <b><i>K</i> &mdash; the number of parallel rollout environments (candidate action
         sequences evaluated per MPPI step)</b>: <b>95&ndash;100% success</b> with keypoint error and MSE
-        about an order of magnitude lower than the others. The videos below show MPPI
-        diagonal-fold rollouts on the <b>same seed, cost, and cloth asset</b> across the three
-        simulators.
+        about an order of magnitude lower than the others. The videos below show these
+        <b>vanilla-MPPI</b> diagonal-fold rollouts under the <b>same controller, cost, initial state,
+        seed, K, and cloth asset</b> &mdash; only the simulator backend differs.
       </p>
     </div>
 
@@ -360,12 +365,15 @@
     <!-- 仿真器对比 rollout：每行一个 K，三个仿真器同 seed / 同 cost / 同 cloth，FLASH 在最左。
          换其它 case 只需改 src 里的 K*_seed* 目录与 caption 的 KP err（数据见该目录 README.txt）。 -->
     <h3 class="title is-5 has-text-centered" style="margin-top:1.5rem; margin-bottom:0.25rem;">
-      Same-condition rollout comparison
+      Same-condition MPPI rollout comparison
     </h3>
-    <!-- <p class="figure-caption has-text-centered" style="margin-bottom:1rem;">
-      Vanilla-MPPI diagonal fold under identical seed / cost / cloth asset.
-      KP err. = settled pick-to-target corner distance (lower is better).
-    </p> -->
+    <p class="figure-caption has-text-centered" style="margin-bottom:1rem;">
+      Each clip is a live <b>vanilla-MPPI</b> diagonal fold with the simulator used as the rollout
+      engine inside the MPPI loop. The <b>controller, cost, initial state, seed, K, and cloth asset
+      are identical</b> across the three columns &mdash; only the simulator backend changes, so every
+      difference comes from simulator fidelity alone. KP err. = settled pick-to-target corner distance
+      (lower is better).
+    </p>
 
     <!-- K = 64 -->
     <h3 class="title is-6 has-text-centered" style="margin-bottom:0.4rem;">K = 64</h3>
