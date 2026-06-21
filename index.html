@@ -318,8 +318,9 @@
         to GPU-friendly sparse operations for stable, repeatable rollouts. We plug each simulator in
         as the rollout engine of one and the same <b>vanilla MPPI</b> controller &mdash; holding the
         cost, initial state, seed, and cloth asset fixed, and tuning every simulator's physical
-        parameters as carefully as we could &mdash; so that any gap reflects the simulator alone. Under
-        this fair comparison FLASH gives the best accuracy&ndash;fidelity&ndash;speed trade-off across all
+        parameters as carefully as we could &mdash; so that the observed differences are attributable
+        to the simulator backend under the shared MPPI setup. Under this fair comparison FLASH gives
+        the best accuracy&ndash;fidelity&ndash;speed trade-off across all
         tested <b><i>K</i> &mdash; the number of parallel rollout environments (candidate action
         sequences evaluated per MPPI step)</b>: <b>95&ndash;100% success</b> with keypoint error and MSE
         about an order of magnitude lower than the others. The videos below show these
@@ -367,12 +368,12 @@
     <h3 class="title is-5 has-text-centered" style="margin-top:1.5rem; margin-bottom:0.25rem;">
       Same-condition MPPI rollout comparison
     </h3>
-    <p class="figure-caption has-text-centered" style="margin-bottom:1rem;">
+    <p class="figure-caption has-text-left" style="margin-bottom:1rem;">
       Each clip is a live <b>vanilla-MPPI</b> diagonal fold with the simulator used as the rollout
       engine inside the MPPI loop. The <b>controller, cost, initial state, seed, K, and cloth asset
-      are identical</b> across the three columns &mdash; only the simulator backend changes, so every
-      difference comes from simulator fidelity alone. KP err. = settled pick-to-target corner distance
-      (lower is better).
+      are identical</b> across the three columns &mdash; only the simulator backend changes, so the
+      observed behaviors reflect backend-specific rollout and control dynamics. KP err. = settled
+      pick-to-target corner distance (lower is better).
     </p>
 
     <!-- K = 64 -->
@@ -443,6 +444,9 @@
         <p class="figure-caption has-text-centered">Newton &mdash; KP err. 31.75 cm</p>
       </div>
     </div>
+    <p class="figure-caption has-text-left" style="margin-bottom:1rem;">
+      <b>Clarification.</b> Simulator parameters are selected using a predefined folding trajectory, while the clips show closed-loop MPPI rollouts with those parameters. Newton's fly-away occurs after MPPI control terminates, suggesting post-control simulation instability rather than MPPI intentionally selecting a fly-away action. Isaac Sim mainly fails because controlled vertices do not follow targets fast enough, so MPPI reaches its step limit before the cloth reaches the goal.
+    </p>
   </div>
 </section>
 
