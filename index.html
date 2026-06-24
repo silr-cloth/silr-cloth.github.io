@@ -447,7 +447,7 @@
       </div>
     </div>
     <p class="figure-caption has-text-left" style="margin-bottom:1rem;">
-      <b>Clarification.</b> Simulator parameters are selected using a predefined folding trajectory, while the clips show closed-loop MPPI rollouts with those parameters. Newton's fly-away occurs after MPPI control terminates, suggesting post-control simulation instability rather than MPPI intentionally selecting a fly-away action. Isaac Sim mainly fails because controlled vertices do not follow targets fast enough, so MPPI reaches its step limit before the cloth reaches the goal.
+      <b>Clarification.</b> Simulator parameters are selected using a predefined folding trajectory, while the clips show closed-loop MPPI rollouts with those parameters. Newton's fly-away occurs after MPPI control terminates, suggesting post-control simulation instability rather than MPPI intentionally selecting a fly-away action. Isaac Sim mainly fails on pin tracking: under the real-time per-step iteration budget its constraint solver does not converge enough for the controlled vertices to track their kinematic targets, so MPPI reaches its step limit before the cloth reaches the goal.
     </p>
   </div>
 </section>
