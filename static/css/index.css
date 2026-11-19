@@ -185,6 +185,42 @@ html:not(.anon) .anon-only  { display: none !important; }
   font-weight: bold;
 }
 
+/* ---- 徽标行：CoRL 2026 + Spotlight，窄屏自动换行 ---- */
+.venue-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.venue-badges .publication-venue {
+  margin-top: 0;
+}
+.publication-spotlight {
+  display: inline-block;
+  padding: 0.2rem 0.9rem;
+  border-radius: 999px;
+  background: #FFF3DC;
+  color: #9a5b00;
+  font-weight: normal;
+}
+.publication-spotlight b {
+  font-weight: bold;
+  color: inherit;
+}
+.publication-spotlight .fa-star {
+  color: #e8a317;
+  margin-right: 0.3rem;
+}
+/* 手机宽度下 Spotlight 文案会折成两行，胶囊圆角收小一点 */
+@media screen and (max-width: 520px) {
+  .publication-venue,
+  .publication-spotlight {
+    border-radius: 0.9rem;
+  }
+}
+
 /* ---- 通用：区块大图 ---- */
 .section-figure {
   width: 100%;
